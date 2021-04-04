@@ -43,10 +43,18 @@ def train_and_display(name):
     model.fit(X_train, y_train)
 
     x_range = np.linspace(X.min(), X.max(), 100)
-    y_range = model.preidct(x_range.reshape(-1,1))
+    y_range = model.predict(x_range.reshape(-1, 1))
 
     fig = go.Figure([
-        go.Scatter(x=X_train.squeeze())
+        go.Scatter(x=X_train.squeeze(), y=y_train,
+                   name='train', mode='markers'),
+        go.Scatter(x=X_test.squeeze(), y=y_test,
+                   name='test', mode='markers'),
+        go.Scatter(x=x_range, y=y_range,
+                   name='prediction')
     ])
+    return fig
+
+app.run_server(debug=True)
 
 
